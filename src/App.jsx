@@ -7,12 +7,10 @@ import GuestRoute from './components/GuestRoute'
 import Login from './components/pages/Login'
 import Register from './components/pages/Register'
 
-
-
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+    <div className="App">
       <Router>
         <Switch>
 
