@@ -8,7 +8,7 @@ import { withCookies } from 'react-cookie'
 import { withRouter } from 'react-router-dom'
 import './Register.scss'
 
-const ajv = new Ajv({ allErrors: true })
+const ajv = new Ajv({ allErrors: true, strictTypes: false })
 
 class Login extends React.Component {
     constructor(props) {
@@ -64,7 +64,7 @@ class Login extends React.Component {
             }
 
             // make api call to register
-            axios.post('/api/v1/users/register', qs.stringify(userObject))
+            axios.post('http://localhost:5000/api/v1/users/register', qs.stringify(userObject))
                 .then(response => {
 
                     console.log(response.data)

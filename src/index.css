@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.marker.red path {
+  fill: red;
+}
+
+.marker.yellow path {
+  fill: #8aec19;
+}
+
+.popup {
+  width: 40vw;
+  padding: 1rem;
+}

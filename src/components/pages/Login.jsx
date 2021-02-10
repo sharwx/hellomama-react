@@ -8,7 +8,7 @@ import { withCookies } from 'react-cookie'
 import { withRouter, Link } from 'react-router-dom'
 import './Login.scss'
 
-const ajv = new Ajv({ allErrors: true })
+const ajv = new Ajv({ allErrors: true, strictTypes: false })
 
 class Login extends React.Component {
     constructor(props) {
@@ -46,14 +46,14 @@ class Login extends React.Component {
         if (formValid) {
 
             // make api call to login
-            axios.post('/api/v1/users/login', qs.stringify({
+            axios.post('http://localhost:5000/api/v1/users/login', qs.stringify({
                 email: this.state.email,
                 password: this.state.password,
             }))
                 .then(response => {
                     if (!response.data.success) {
                         this.setState({
-                            formErr: "Email or username is incorrect, please try again"
+                            formErr: ["Email or username is incorrect, please try again"]
                         })
                         return
                     }
@@ -68,7 +68,7 @@ class Login extends React.Component {
 
                 .catch(err => {
                     this.setState({
-                        formErr: "Email or username is incorrect, please try again"
+                        formErr: ["Email or username is incorrect, please try again"]
                     })
                 })
 
