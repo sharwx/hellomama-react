@@ -12,6 +12,7 @@ class EditListing extends React.Component {
 
         this.state = {
             location: {},
+            location_name: '',
             location_description: '',
             location_level: '',
             address: '',
@@ -56,11 +57,12 @@ class EditListing extends React.Component {
                     location: response.data
                 })
                 console.log(response.data)
-
+                console.log(this.state.location.locations.location_name)
             })
             .catch(err => {
                 console.log(err)
             })
+            
     }
 
     handleChange(e, elemName) {
@@ -89,31 +91,31 @@ class EditListing extends React.Component {
         }
     }
 
-    onClick_cs = () => {
+    onClick_cs() {
         this.setState({
             enabledCheckBox_cs: !this.state.enabledCheckBox_cs
         })
     }
 
-    onClick_sink = () => {
+    onClick_sink() {
         this.setState({
             enabledCheckBox_sink: !this.state.enabledCheckBox_sink
         })
     }
 
-    onClick_hwd = () => {
+    onClick_hwd() {
         this.setState({
             enabledCheckBox_hwd: !this.state.enabledCheckBox_hwd
         })
     }
 
-    onClick_pp = () => {
+    onClick_pp() {
         this.setState({
             enabledCheckBox_pp: !this.state.enabledCheckBox_pp
         })
     }
 
-    onClick_lockable = () => {
+    onClick_lockable() {
         this.setState({
             enabledCheckBox_lockable: !this.state.enabledCheckBox_lockable
         })
@@ -150,6 +152,27 @@ class EditListing extends React.Component {
             })
     }
 
+    handleDelete(e) {
+        e.preventDefault()
+        // console.log('delete')
+        const slug = this.props.match.params.slug
+        // console.log(slug)
+        const token = this.props.cookies.get("token");
+        const config = {
+            headers: {
+                auth_token: token
+            }
+        }
+        axios.delete(`http://localhost:5000/api/v1/locations/${slug}`, config)
+        .then(response => {
+            // console.log(response.data)
+            this.props.history.push('/')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
 
     render() {
         return (
@@ -164,7 +187,7 @@ class EditListing extends React.Component {
                                     <div className="col-md-4 offset-md-4">
 
                                         <div className="titleDiv">
-                                            <p className="title">Edit Details</p>
+                                            <p className="title">Edit Details for {this.state.location.location_name}</p>
                                         </div>
 
                                         <form className="mt-3 mb-5" onSubmit={e => { this.handleFormSubmission(e) }}>
@@ -215,8 +238,19 @@ class EditListing extends React.Component {
                                                 
                                             </div>
 
-                                            <button type="submit" className="btn font-weight-bold" id="submit-btn">UPDATE</button>
-                                            <Link to="/" className="btn active font-weight-bold" id="back-btn" role="button" aria-pressed="true">Back</Link>
+                                            <div className="row btn-grp">
+                                                
+                                                <div className="col-6">
+                                                    <button type="button" className="btn font-weight-bold" id="submit-btn">UPDATE</button>
+                                                </div>
+                                                <div className="col-6">
+                                                    <button onClick={e => { this.handleDelete(e) }} type="button" className="btn font-weight-bold" id="delete-btn">DELETE</button>
+                                                </div>
+                                                <div className="col-12">
+                                                    <Link to="/" className="btn active font-weight-bold" id="back-btn" role="button" aria-pressed="true">Back</Link>
+                                                </div>
+
+                                            </div>
 
 
                                         </form>

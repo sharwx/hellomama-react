@@ -147,7 +147,7 @@ class Login extends React.Component {
 
                                     <hr />
 
-                                <Link to="/users/register" class="btn active font-weight-bold" id="reg-btn" role="button" aria-pressed="true">Create New Account</Link>
+                                <Link to="/users/register" className="btn active font-weight-bold" id="reg-btn" role="button" aria-pressed="true">Create New Account</Link>
 
                                 </div>
                             </div>
