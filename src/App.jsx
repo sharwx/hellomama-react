@@ -1,37 +1,31 @@
 import React from 'react'
 import './App.scss';
-import Map from './Map'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import { withRouter } from 'react-router-dom'
+// import axios from 'axios'
 
-import Header from './components/Header'
-import SideNav from './components/SideNav'
+
+// import Map from './Map'
+// import Header from './components/Header'
+// import SideNav from './components/SideNav'
 // import ProtectedRoute from './components/ProtectedRoute'
-import GuestRoute from './components/GuestRoute'
-import Login from './components/pages/Login'
-import Register from './components/pages/Register'
-import EditLocation from './components/pages/EditLocation';
+// import GuestRoute from './components/GuestRoute'
+// import Login from './components/pages/Login'
+// import Register from './components/pages/Register'
+// import EditLocation from './components/pages/EditLocation';
+import MyContainer from './MyContainer'
 
 
 class App extends React.Component {
+
   render() {
     return (
     <div className="App">
-      <Router>
+      
+      <MyContainer>
 
-        <Header />
-        <SideNav />
+      </MyContainer>
 
-        <Switch>
-
-          <GuestRoute path="/users/login" component={Login} />
-          <GuestRoute path="/users/register" component={Register} />
-
-          <Route path="/locations/:slug" component={EditLocation} />
-
-          <Route path="/"><Map/></Route>
-
-        </Switch>
-      </Router>
     </div>
     );
   }

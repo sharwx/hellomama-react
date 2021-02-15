@@ -1,10 +1,9 @@
 import React from 'react'
 import jwt from 'jwt-decode'
-import axios from 'axios'
 import './Map.scss';
 import {useState, useEffect } from 'react'
 import MapGL, { Marker, Popup } from 'react-map-gl'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
 import { getLocations } from './components/API'
@@ -43,28 +42,6 @@ function Map() {
         longitude
       })
     }
-
-    // const { slug } = useParams()
-    // const history = useHistory()
-
-    // const handleDelete = (e) => {
-    //   e.preventDefault()
-    //   console.log(slug)
-    //   const config = {
-    //     headers: {
-    //       auth_token: cookies.token
-    //     }
-    //   }
-    //   axios.delete(`http://localhost:5000/api/v1/locations/${slug}`, config)
-    //     .then(response => {
-    //       console.log(response.data)
-    //       history.push('/')
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-
-    // }
   
     return (
         <MapGL
@@ -173,9 +150,6 @@ function Map() {
                                           <button type="button" id="edit-button" className="btn active font-weight-bold">Edit</button>
                                         </Link>
                                     </div>
-                                    {/* <div className="delete-button">
-                                      <button onClick={e => { handleDelete(e) }} type="button" id="delete-button" className="btn">Delete</button>
-                                    </div> */}
                                 </div>
 
                               )

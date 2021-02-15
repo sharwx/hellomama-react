@@ -3,53 +3,54 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 // import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
-// import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import './Header.scss'
 import axios from 'axios'
 
 class Header extends React.Component {
-    constructor(props) {
-    super(props)
+    // constructor(props) {
+    // super(props)
 
-        this.state = {
-            user: '',
-            loggedIn: null
-        }
-    }
+    //     this.state = {
+    //         user: '',
+    //         loggedIn: null
+    //     }
+    // }
+
+    // getProfileUser() {
+    //     const token = this.props.cookies.get('token')
+    //     const config = {
+    //         headers: {
+    //             auth_token: token
+    //         }
+    //     }
+    //     return axios.get('http://localhost:5000/api/v1/users/profile', config)
+    //         .then(response => {
+    //             // console.log(response.data)
+    //             this.setState({
+    //                 username: response.data[0].username,
+    //                 loggedIn: true
+    //             })
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }
+
+    // getUser() {
+    //     return JSON.parse(localStorage.getItem('user'))
+    // }
 
     componentDidMount() {
-        this.getProfileUser()
-    }
-
-    getProfileUser() {
-        const token = this.props.cookies.get('token')
-        const config = {
-            headers: {
-                auth_token: token
-            }
-        }
-        return axios.get('http://localhost:5000/api/v1/users/profile', config)
-            .then(response => {
-                // console.log(response.data)
-                this.setState({
-                    username: response.data[0].username,
-                    loggedIn: true
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    getUser() {
-        return JSON.parse(localStorage.getItem('user'))
+        this.props.getProfileUser()
     }
     
     isAuthenticated() {
         const token = this.props.cookies.get('token')
-
+        
         if (!token || token === "undefined" || token === "null") {
+            console.log(!token)
             return false
         }
 
@@ -58,14 +59,16 @@ class Header extends React.Component {
 
     logout(e) {
         e.preventDefault()
-   
+        console.log("logout test")
         try {
-            localStorage.removeItem('user')
-            this.props.cookies.remove('token')
+            // console.log(this.props.cookies.getAll())
+            // localStorage.removeItem('user')
+            this.props.cookies.set('token', "undefined")
             this.setState({
-                loggedIn: false
+                loggedIn: null
             })
             // window.location.reload()
+            this.props.history.push('/')
         } catch (err) {
             console.log(err)
         }
@@ -78,14 +81,6 @@ class Header extends React.Component {
             <Navbar id="site-header" bg="light" expand="lg">
                 <Nav className="container-fluid">
                     <Navbar.Brand href="/">
-                        {/* <img
-                            alt="logo"
-                            src="../../img/mrktplc.png"
-                            width="30"
-                            height="30"
-                            id="brand-logo"
-                            className="d-inline-block align-top"
-                        /> */}
 
                         <svg
                         style={{
@@ -178,4 +173,4 @@ class Header extends React.Component {
     }
 }
 
-export default withCookies(Header)
+export default withRouter(withCookies(Header))

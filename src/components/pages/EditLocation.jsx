@@ -11,17 +11,18 @@ class EditListing extends React.Component {
         super(props)
 
         this.state = {
-            location: {},
-            location_name: '',
-            location_description: '',
-            location_level: '',
-            address: '',
-            photo: '',            
-            enabledCheckBox_cs: false,
-            enabledCheckBox_sink: false,
-            enabledCheckBox_hwd: false,
-            enabledCheckBox_pp: false,
-            enabledCheckBox_lockable: false
+            location: {
+                    location_name: '',
+                    location_description: '',
+                    location_level: '',
+                    address: '',
+                    photo: '',            
+                    enabledCheckBox_cs: false,
+                    enabledCheckBox_sink: false,
+                    enabledCheckBox_hwd: false,
+                    enabledCheckBox_pp: false,
+                    enabledCheckBox_lockable: false
+            },
         }
     }
 
@@ -54,10 +55,9 @@ class EditListing extends React.Component {
         return axios.get(`http://localhost:5000/api/v1/locations/${slug}`)
             .then(response => {
                 this.setState({
-                    location: response.data
+                    location: response.data.locations
                 })
                 console.log(response.data)
-                console.log(this.state.location.locations.location_name)
             })
             .catch(err => {
                 console.log(err)
@@ -69,22 +69,22 @@ class EditListing extends React.Component {
         switch (elemName) {
             case 'location_description':
                 this.setState({
-                    location_description: e.target.value
+                    location: {...this.state.location, location_description: e.target.value}
                 })
                 break
             case 'location_level':
                 this.setState({
-                    location_level: e.target.value
+                    location: {...this.state.location, location_level: e.target.value}
                 })
                 break
             case 'address':
                 this.setState({
-                    address: e.target.value
+                    location: {...this.state.location, address: e.target.value}
                 })
                 break
             case 'photo':
                 this.setState({
-                    photo: e.target.value
+                    location: {...this.state.location, photo: e.target.value}
                 })
                 break
             default:
@@ -93,31 +93,31 @@ class EditListing extends React.Component {
 
     onClick_cs() {
         this.setState({
-            enabledCheckBox_cs: !this.state.enabledCheckBox_cs
+            location: {...this.state.location, changing_station: !this.state.location.changing_station}
         })
     }
 
     onClick_sink() {
         this.setState({
-            enabledCheckBox_sink: !this.state.enabledCheckBox_sink
+            location: {...this.state.location, sink: !this.state.location.sink}
         })
     }
 
     onClick_hwd() {
         this.setState({
-            enabledCheckBox_hwd: !this.state.enabledCheckBox_hwd
+            location: {...this.state.location, hot_water_dispenser: !this.state.location.hot_water_dispenser}
         })
     }
 
     onClick_pp() {
         this.setState({
-            enabledCheckBox_pp: !this.state.enabledCheckBox_pp
+            location: {...this.state.location, power_point: !this.state.location.power_point}
         })
     }
 
     onClick_lockable() {
         this.setState({
-            enabledCheckBox_lockable: !this.state.enabledCheckBox_lockable
+            location: {...this.state.location, lockable: !this.state.location.lockable}
         })
     }
 
@@ -212,27 +212,27 @@ class EditListing extends React.Component {
                                             <div className="row">
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="changing_station" value={this.state.location.changing_station} onChange={this.onClick_cs} checked={this.state.enabledCheckBox_cs} className="form-check-input" id="changing_station" />
+                                                    <input type="checkbox" name="changing_station" onChange={e => { this.onClick_cs(e)} } checked={this.state.location.changing_station} className="form-check-input" id="changing_station" />
                                                     <label htmlFor="changing_station">Changing Station</label>
                                                 </div>
                                                 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="sink" value={this.state.location.sink} onChange={this.onClick_sink} checked={this.state.enabledCheckBox_sink} className="form-check-input" id="sink" />
+                                                    <input type="checkbox" name="sink" onChange={e => { this.onClick_sink(e) }} checked={this.state.location.sink} className="form-check-input" id="sink" />
                                                     <label htmlFor="sink">Sink</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="hot_water_dispenser" value={this.state.location.hot_water_dispenser} onChange={this.onClick_hwd} checked={this.state.enabledCheckBox_hwd} className="form-check-input" id="hot_water_dispenser" />
+                                                    <input type="checkbox" name="hot_water_dispenser" onChange={e => {this.onClick_hwd(e) }} checked={this.state.location.hot_water_dispenser} className="form-check-input" id="hot_water_dispenser" />
                                                     <label htmlFor="hot_water_dispenser">Hot Water Dispenser</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="power_point" value={this.state.location.power_point} onChange={this.onClick_pp} checked={this.state.enabledCheckBox_pp} className="form-check-input" id="power_point"  />
+                                                    <input type="checkbox" name="power_point" onChange={e => {this.onClick_pp(e) }} checked={this.state.location.power_point} className="form-check-input" id="power_point"  />
                                                     <label htmlFor="power_point">Power Point</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="lockable" value={this.state.location.lockable} onChange={this.onClick_lockable} checked={this.state.enabledCheckBox_lockable} className="form-check-input" id="lockable"  />
+                                                    <input type="checkbox" name="lockable" onChange={e => {this.onClick_lockable(e) }} checked={this.state.location.lockable} className="form-check-input" id="lockable"  />
                                                     <label htmlFor="lockable">Lockable</label>
                                                 </div>
                                                 
@@ -241,7 +241,7 @@ class EditListing extends React.Component {
                                             <div className="row btn-grp">
                                                 
                                                 <div className="col-6">
-                                                    <button type="button" className="btn font-weight-bold" id="submit-btn">UPDATE</button>
+                                                    <button type="submit" className="btn font-weight-bold" id="submit-btn">UPDATE</button>
                                                 </div>
                                                 <div className="col-6">
                                                     <button onClick={e => { this.handleDelete(e) }} type="button" className="btn font-weight-bold" id="delete-btn">DELETE</button>
