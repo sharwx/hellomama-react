@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import qs from 'qs'
 import { withCookies } from 'react-cookie'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect, Link } from 'react-router-dom'
 import './EditLocation.scss'
 
 
@@ -154,23 +154,28 @@ class EditListing extends React.Component {
     render() {
         return (
             this.isAuthenticated() ? (
-                <div id="page-editList">
+                <div id="page-edit">
                     <div className="container">
                         <div className="wrapper">
                             <div className="form-input">
+
                                 <div className="row">
+
                                     <div className="col-md-4 offset-md-4">
+
                                         <div className="titleDiv">
                                             <p className="title">Edit Details</p>
                                         </div>
-                                        <form className="mt-5 mb-5" onSubmit={e => { this.handleFormSubmission(e) }}>
+
+                                        <form className="mt-3 mb-5" onSubmit={e => { this.handleFormSubmission(e) }}>
+
                                             <div className="form-group">
                                                 <label className="entryTitle" htmlFor="location_description">Location Description</label>
                                                 <textarea className="form-control" value={this.state.location.location_description} onChange={e => { this.handleChange(e, 'location_description') }} id="location_description" rows="2"></textarea>
                                             </div>
                                             <div className="form-group">
                                                 <label className="entryTitle" htmlFor="location_level">Location Level</label>
-                                                <input type="text" value={this.state.location.location_level} onChange={e => { this.handleChange(e, 'location_level') }} className="form-control" id="location_level" />
+                                                <textarea className="form-control" value={this.state.location.location_level} onChange={e => { this.handleChange(e, 'location_level') }} id="location_level" rows="2"></textarea>
                                             </div>
                                             <div className="form-group">
                                                 <label className="entryTitle" htmlFor="address">Address</label>
@@ -181,22 +186,39 @@ class EditListing extends React.Component {
                                                 <input type="text" value={this.state.location.photo} onChange={e => { this.handleChange(e, 'photo') }} className="form-control" id="photo" />
                                             </div>
 
-                                            <input type="checkbox" name="changing_station" value={this.state.location.changing_station} onChange={this.onClick_cs} checked={this.state.enabledCheckBox_cs} className="form-check-input" id="changing_station" />
-                                            <label htmlFor="changing_station">Changing Station</label><br/>
-                                            
-                                            <input type="checkbox" name="sink" value={this.state.location.sink} onChange={this.onClick_sink} checked={this.state.enabledCheckBox_sink} className="form-check-input" id="sink" />
-                                            <label htmlFor="sink">Sink</label><br/>
+                                            <div className="row">
 
-                                            <input type="checkbox" name="hot_water_dispenser" value={this.state.location.hot_water_dispenser} onChange={this.onClick_hwd} checked={this.state.enabledCheckBox_hwd} className="form-check-input" id="hot_water_dispenser" />
-                                            <label htmlFor="hot_water_dispenser">Hot Water Dispenser</label><br/>
+                                                <div className="col-6 align-1">
+                                                    <input type="checkbox" name="changing_station" value={this.state.location.changing_station} onChange={this.onClick_cs} checked={this.state.enabledCheckBox_cs} className="form-check-input" id="changing_station" />
+                                                    <label htmlFor="changing_station">Changing Station</label>
+                                                </div>
+                                                
+                                                <div className="col-6 align-1">
+                                                    <input type="checkbox" name="sink" value={this.state.location.sink} onChange={this.onClick_sink} checked={this.state.enabledCheckBox_sink} className="form-check-input" id="sink" />
+                                                    <label htmlFor="sink">Sink</label>
+                                                </div>
 
-                                            <input type="checkbox" name="power_point" value={this.state.location.power_point} onChange={this.onClick_pp} checked={this.state.enabledCheckBox_pp} className="form-check-input" id="power_point"  />
-                                            <label htmlFor="power_point">Power Point</label><br/>
+                                                <div className="col-6 align-1">
+                                                    <input type="checkbox" name="hot_water_dispenser" value={this.state.location.hot_water_dispenser} onChange={this.onClick_hwd} checked={this.state.enabledCheckBox_hwd} className="form-check-input" id="hot_water_dispenser" />
+                                                    <label htmlFor="hot_water_dispenser">Hot Water Dispenser</label>
+                                                </div>
 
-                                            <input type="checkbox" name="lockable" value={this.state.location.lockable} onChange={this.onClick_lockable} checked={this.state.enabledCheckBox_lockable} className="form-check-input" id="lockable"  />
-                                            <label htmlFor="lockable">Lockable</label><br/>
+                                                <div className="col-6 align-1">
+                                                    <input type="checkbox" name="power_point" value={this.state.location.power_point} onChange={this.onClick_pp} checked={this.state.enabledCheckBox_pp} className="form-check-input" id="power_point"  />
+                                                    <label htmlFor="power_point">Power Point</label>
+                                                </div>
 
-                                            <button type="submit" className="btn font-weight-bold" id="submit-btn">Update</button>
+                                                <div className="col-6 align-1">
+                                                    <input type="checkbox" name="lockable" value={this.state.location.lockable} onChange={this.onClick_lockable} checked={this.state.enabledCheckBox_lockable} className="form-check-input" id="lockable"  />
+                                                    <label htmlFor="lockable">Lockable</label>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <button type="submit" className="btn font-weight-bold" id="submit-btn">UPDATE</button>
+                                            <Link to="/" className="btn active font-weight-bold" id="back-btn" role="button" aria-pressed="true">Back</Link>
+
+
                                         </form>
                                     </div>
                                 </div>
@@ -204,6 +226,7 @@ class EditListing extends React.Component {
                         </div>
                     </div>
                 </div>
+
             ) : (
                     <Redirect to="/users/login" />
                 )

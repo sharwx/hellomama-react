@@ -4,11 +4,13 @@ import Map from './Map'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Header from './components/Header'
-import ProtectedRoute from './components/ProtectedRoute'
+import SideNav from './components/SideNav'
+// import ProtectedRoute from './components/ProtectedRoute'
 import GuestRoute from './components/GuestRoute'
 import Login from './components/pages/Login'
 import Register from './components/pages/Register'
 import EditLocation from './components/pages/EditLocation';
+
 
 class App extends React.Component {
   render() {
@@ -17,6 +19,7 @@ class App extends React.Component {
       <Router>
 
         <Header />
+        <SideNav />
 
         <Switch>
 
