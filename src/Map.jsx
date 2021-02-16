@@ -2,7 +2,7 @@ import React from 'react'
 import jwt from 'jwt-decode'
 import './Map.scss';
 import {useState, useEffect } from 'react'
-import MapGL, { Marker, Popup } from 'react-map-gl'
+import MapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl'
 import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
@@ -11,6 +11,7 @@ import AddLocationForm from './components/AddLocationForm'
 
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN
+
 
 function Map() {
     const [locations, setLocations] = useState([])
@@ -24,6 +25,14 @@ function Map() {
       bearing: 0,
       pitch: 0
     });
+
+    const geolocateStyle = {
+      float: 'right',
+      margin: '10px',
+      padding: '10px'
+    }
+
+    const _onViewportChange = viewport => setViewport({...viewport})
 
     const listLocations = async () => {
       const result = await getLocations()
@@ -42,7 +51,7 @@ function Map() {
         longitude
       })
     }
-  
+
     return (
         <MapGL
           {...viewport}
@@ -50,9 +59,15 @@ function Map() {
           width="100vw"
           height="100vh"
           mapStyle="mapbox://styles/mapbox/streets-v11"
-          onViewportChange={setViewport}
+          onViewportChange={_onViewportChange}
           onDblClick={showAddMarkerPopup}
         >
+          <GeolocateControl
+            style={geolocateStyle}
+            positionOptions={{enableHighAccuracy: true}}
+            trackUserLocation={true}
+          />
+
           {
             locations.map(entry => (
               <React.Fragment key={entry.id}>
