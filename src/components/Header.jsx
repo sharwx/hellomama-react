@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button'
 import { withRouter } from 'react-router-dom'
 import { withCookies } from 'react-cookie'
 import './Header.scss'
-import axios from 'axios'
 
 class Header extends React.Component {
     // constructor(props) {
@@ -38,10 +37,6 @@ class Header extends React.Component {
     //         })
     // }
 
-    // getUser() {
-    //     return JSON.parse(localStorage.getItem('user'))
-    // }
-
     componentDidMount() {
         this.props.getProfileUser()
     }
@@ -50,7 +45,7 @@ class Header extends React.Component {
         const token = this.props.cookies.get('token')
         
         if (!token || token === "undefined" || token === "null") {
-            console.log(!token)
+            // console.log(!token)
             return false
         }
 
@@ -59,16 +54,14 @@ class Header extends React.Component {
 
     logout(e) {
         e.preventDefault()
-        console.log("logout test")
         try {
-            // console.log(this.props.cookies.getAll())
-            // localStorage.removeItem('user')
-            this.props.cookies.set('token', "undefined")
+            this.props.cookies.remove('token', {path:'/'})
             this.setState({
                 loggedIn: null
             })
-            // window.location.reload()
             this.props.history.push('/')
+            // console.log(this.props.cookies.get("token"))
+
         } catch (err) {
             console.log(err)
         }

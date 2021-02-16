@@ -38,7 +38,7 @@ class EditListing extends React.Component {
 
     componentDidMount() {
         const routeParams = this.props.match.params
-        console.log(routeParams)
+        // console.log(routeParams)
         // console.log(this.props)
 
         if (this.props.location.state && this.props.location.state.product) {
@@ -57,7 +57,7 @@ class EditListing extends React.Component {
                 this.setState({
                     location: response.data.locations
                 })
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(err => {
                 console.log(err)
@@ -91,35 +91,42 @@ class EditListing extends React.Component {
         }
     }
 
-    onClick_cs() {
+    checkbox_onClick(e) {
+        const { name } = e.target
         this.setState({
-            location: {...this.state.location, changing_station: !this.state.location.changing_station}
+            location: {...this.state.location, [name]: !this.state.location[name] }
         })
     }
 
-    onClick_sink() {
-        this.setState({
-            location: {...this.state.location, sink: !this.state.location.sink}
-        })
-    }
+    // onClick_cs() {
+    //     this.setState({
+    //         location: {...this.state.location, changing_station: !this.state.location.changing_station}
+    //     })
+    // }
 
-    onClick_hwd() {
-        this.setState({
-            location: {...this.state.location, hot_water_dispenser: !this.state.location.hot_water_dispenser}
-        })
-    }
+    // onClick_sink() {
+    //     this.setState({
+    //         location: {...this.state.location, sink: !this.state.location.sink}
+    //     })
+    // }
 
-    onClick_pp() {
-        this.setState({
-            location: {...this.state.location, power_point: !this.state.location.power_point}
-        })
-    }
+    // onClick_hwd() {
+    //     this.setState({
+    //         location: {...this.state.location, hot_water_dispenser: !this.state.location.hot_water_dispenser}
+    //     })
+    // }
 
-    onClick_lockable() {
-        this.setState({
-            location: {...this.state.location, lockable: !this.state.location.lockable}
-        })
-    }
+    // onClick_pp() {
+    //     this.setState({
+    //         location: {...this.state.location, power_point: !this.state.location.power_point}
+    //     })
+    // }
+
+    // onClick_lockable() {
+    //     this.setState({
+    //         location: {...this.state.location, lockable: !this.state.location.lockable}
+    //     })
+    // }
 
     handleFormSubmission(e) {
         e.preventDefault() 
@@ -212,27 +219,27 @@ class EditListing extends React.Component {
                                             <div className="row">
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="changing_station" onChange={e => { this.onClick_cs(e)} } checked={this.state.location.changing_station} className="form-check-input" id="changing_station" />
+                                                    <input type="checkbox" name="changing_station" onChange={e => { this.checkbox_onClick(e)} } checked={this.state.location.changing_station} className="form-check-input" id="changing_station" />
                                                     <label htmlFor="changing_station">Changing Station</label>
                                                 </div>
                                                 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="sink" onChange={e => { this.onClick_sink(e) }} checked={this.state.location.sink} className="form-check-input" id="sink" />
+                                                    <input type="checkbox" name="sink" onChange={e => { this.checkbox_onClick(e) }} checked={this.state.location.sink} className="form-check-input" id="sink" />
                                                     <label htmlFor="sink">Sink</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="hot_water_dispenser" onChange={e => {this.onClick_hwd(e) }} checked={this.state.location.hot_water_dispenser} className="form-check-input" id="hot_water_dispenser" />
+                                                    <input type="checkbox" name="hot_water_dispenser" onChange={e => {this.checkbox_onClick(e) }} checked={this.state.location.hot_water_dispenser} className="form-check-input" id="hot_water_dispenser" />
                                                     <label htmlFor="hot_water_dispenser">Hot Water Dispenser</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="power_point" onChange={e => {this.onClick_pp(e) }} checked={this.state.location.power_point} className="form-check-input" id="power_point"  />
+                                                    <input type="checkbox" name="power_point" onChange={e => {this.checkbox_onClick(e) }} checked={this.state.location.power_point} className="form-check-input" id="power_point"  />
                                                     <label htmlFor="power_point">Power Point</label>
                                                 </div>
 
                                                 <div className="col-6 align-1">
-                                                    <input type="checkbox" name="lockable" onChange={e => {this.onClick_lockable(e) }} checked={this.state.location.lockable} className="form-check-input" id="lockable"  />
+                                                    <input type="checkbox" name="lockable" onChange={e => {this.checkbox_onClick(e) }} checked={this.state.location.lockable} className="form-check-input" id="lockable"  />
                                                     <label htmlFor="lockable">Lockable</label>
                                                 </div>
                                                 

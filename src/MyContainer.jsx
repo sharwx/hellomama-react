@@ -19,7 +19,9 @@ class MyContainer extends React.Component {
   
         this.state = {
             user: '',
-            loggedIn: null
+            loggedIn: null,
+            locations: [],
+            filterList: []
         }
     }
   
@@ -32,7 +34,6 @@ class MyContainer extends React.Component {
       }
       return axios.get('http://localhost:5000/api/v1/users/profile', config)
           .then(response => {
-              console.log("test profile")
             //   console.log(response.data)
               this.setState({
                   username: response.data[0].username,
@@ -44,11 +45,34 @@ class MyContainer extends React.Component {
           })
     }
 
+    getLocations() {
+        return axios.get('http://localhost:5000/api/v1/locations')
+            .then(response => {
+                this.setState({
+                    locations: response.data.locations,
+                    filterList: response.data
+                })
+                console.log(this.state.locations)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    handleChange_searchBox(e) {
+        // return
+    }
+
+    handleChange_checkBox(e) {
+        // return
+    }
+
+
     render() {
         return (
             <Router>
-                <Header getProfileUser = { () => this.getProfileUser()} />
-                <SideNav />
+                <Header getProfileUser = { () => this.getProfileUser() } />
+                <SideNav handleChange_checkBox = { () => this.handleChange_checkBox() }/>
 
                 <Switch>
 
