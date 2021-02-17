@@ -1,6 +1,6 @@
 import qs from 'qs'
 
-const API_URL = 'http://localhost:5000/api/v1'
+const API_URL = 'https://hellomama-be.herokuapp.com/api/v1'
 
 export async function getLocations() {
     const response = await fetch(`${API_URL}/locations`)
