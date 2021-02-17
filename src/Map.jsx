@@ -13,7 +13,7 @@ import AddLocationForm from './components/AddLocationForm'
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN
 
 
-function Map() {
+function Map(props) {
     const [locations, setLocations] = useState([])
     const [showPopup, setShowPopup] = useState({})
     const [cookies] = useCookies(["token"])
@@ -52,6 +52,9 @@ function Map() {
       })
     }
 
+    // console.log(props.checkbox_lock)
+    // console.log(locations)
+
     return (
         <MapGL
           {...viewport}
@@ -69,7 +72,43 @@ function Map() {
           />
 
           {
-            locations.map(entry => (
+            locations.filter(entry => {
+              let arr = []
+              // if (props.checkbox_lock) {
+              //   return entry.lockable
+              // } else {
+              //   return true
+              // }
+
+              if (props.checkbox_lock === true) {
+                arr.push(entry.lockable)
+              } else if (props.checkbox_cs === true) {
+                arr.push(entry.changing_station)
+              } else if (props.checkbox_sink === true) {
+                arr.push(entry.sink)
+              } else if (props.checkbox_hwd === true) {
+                arr.push(entry.hot_water_dispenser)
+              } else if (props.checkbox_pp === true) {
+                arr.push(entry.power_point)
+              }
+
+              if (arr.length === 1) {
+                return arr[0]
+              } else if (arr.length === 2) {
+                return arr[0], arr[1]
+              } else if (arr.length === 3) {
+                return arr[0], arr[1], arr[2]
+              } else if (arr.length === 4) {
+                return arr[0], arr[1], arr[2], arr[3]
+              } else if (arr.length === 5) {
+                return arr[0], arr[1], arr[2], arr[4], arr[5]
+              } else {
+                return true
+              }
+
+            })
+
+              .map(entry => (
               <React.Fragment key={entry.id}>
               <Marker 
                 latitude={parseFloat(entry.latitude)}

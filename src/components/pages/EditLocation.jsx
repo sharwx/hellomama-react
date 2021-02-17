@@ -52,7 +52,7 @@ class EditListing extends React.Component {
     }
 
     autoFillForm(slug) {
-        return axios.get(`https://hellomama-be.herokuapp.com/api/v1/locations/${slug}`)
+        return axios.get(`http://localhost:5000/api/v1/locations/${slug}`)
             .then(response => {
                 this.setState({
                     location: response.data.locations
@@ -138,7 +138,7 @@ class EditListing extends React.Component {
         }
 
         let slug = this.props.match.params.slug
-        axios.patch(`https://hellomama-be.herokuapp.com/api/v1/locations/${slug}`, qs.stringify({
+        axios.patch(`http://localhost:5000/api/v1/locations/${slug}`, qs.stringify({
             location_description: this.state.location.location_description,
             location_level: this.state.location.location_level,
             address: this.state.location.address,
@@ -170,7 +170,7 @@ class EditListing extends React.Component {
                 auth_token: token
             }
         }
-        axios.delete(`https://hellomama-be.herokuapp.com/api/v1/locations/${slug}`, config)
+        axios.delete(`http://localhost:5000/api/v1/locations/${slug}`, config)
         .then(response => {
             // console.log(response.data)
             this.props.history.push('/')

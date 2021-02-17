@@ -21,7 +21,12 @@ class MyContainer extends React.Component {
             user: '',
             loggedIn: null,
             locations: [],
-            filterList: []
+            checkbox_cs: false,
+            checkbox_sink: false,
+            checkbox_hwd: false,
+            checkbox_pp: false,
+            checkbox_lock: false
+            
         }
     }
   
@@ -32,7 +37,7 @@ class MyContainer extends React.Component {
               auth_token: token
           }
       }
-      return axios.get('https://hellomama-be.herokuapp.com/api/v1/users/profile', config)
+      return axios.get('http://localhost:5000/api/v1/users/profile', config)
           .then(response => {
             //   console.log(response.data)
               this.setState({
@@ -46,7 +51,7 @@ class MyContainer extends React.Component {
     }
 
     getLocations() {
-        return axios.get('https://hellomama-be.herokuapp.com/api/v1/locations')
+        return axios.get('http://localhost:5000/api/v1/locations')
             .then(response => {
                 this.setState({
                     locations: response.data.locations,
@@ -63,16 +68,48 @@ class MyContainer extends React.Component {
         // return
     }
 
-    handleChange_checkBox(e) {
-        // return
+    filterCheckBox_cs() {
+        this.setState({
+            checkbox_cs: !this.state.checkbox_cs
+        })
+    }
+
+    filterCheckBox_sink() {
+        this.setState({
+            checkbox_sink: !this.state.checkbox_sink
+        })
+    }
+
+    filterCheckBox_hwd() {
+        this.setState({
+            checkbox_hwd: !this.state.checkbox_hwd
+        })
+    }
+
+    filterCheckBox_pp() {
+        this.setState({
+            checkbox_pp: !this.state.checkbox_pp
+        })
+    }
+
+    filterCheckBox_lock() {
+        this.setState({
+            checkbox_lock: !this.state.checkbox_lock
+        })
     }
 
 
     render() {
         return (
             <Router>
-                <Header getProfileUser = { () => this.getProfileUser() } />
-                <SideNav handleChange_checkBox = { () => this.handleChange_checkBox() }/>
+                <Header getProfileUser={ () => this.getProfileUser() } />
+                <SideNav 
+                    filterCheckBox_cs={ () => this.filterCheckBox_cs() } 
+                    filterCheckBox_sink={ () => this.filterCheckBox_sink() } 
+                    filterCheckBox_hwd={ () => this.filterCheckBox_hwd() } 
+                    filterCheckBox_pp={ () => this.filterCheckBox_pp() } 
+                    filterCheckBox_lock={ () => this.filterCheckBox_lock() } 
+                />
 
                 <Switch>
 
@@ -81,7 +118,14 @@ class MyContainer extends React.Component {
 
                     <Route path="/locations/:slug" component={EditLocation} />
 
-                    <Route path="/"><Map/></Route>
+                    <Route path="/"><Map 
+                        checkbox_cs={this.state.checkbox_cs}
+                        checkbox_sink={this.state.checkbox_sink}
+                        checkbox_hwd={this.state.checkbox_hwd}
+                        checkbox_pp={this.state.checkbox_pp}
+                        checkbox_lock={this.state.checkbox_lock}
+                    
+                    /></Route>
 
                 </Switch>
             </Router>
