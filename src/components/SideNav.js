@@ -121,16 +121,6 @@ function SideNav(props) {
                   </div>
 
                 </div>
-  
-                {/* <button id="button" className="btn active font-weight-bold" type="submit">Search Filter</button>
-
-                <br />
-
-                { 
-                  (cookies && cookies.token && jwt(cookies.token).username) && (
-                    <button id="reg-btn" className="btn active font-weight-bold" type="submit">Search User Entry</button>
-                  ) 
-                } */}
 
               </form>
 

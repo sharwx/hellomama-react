@@ -21,11 +21,11 @@ class MyContainer extends React.Component {
             user: '',
             loggedIn: null,
             locations: [],
-            checkbox_cs: false,
-            checkbox_sink: false,
-            checkbox_hwd: false,
-            checkbox_pp: false,
-            checkbox_lock: false
+            changing_station: false,
+            sink: false,
+            hot_water_dispenser: false,
+            power_point: false,
+            lockable: false
             
         }
     }
@@ -37,7 +37,7 @@ class MyContainer extends React.Component {
               auth_token: token
           }
       }
-      return axios.get('http://localhost:5000/api/v1/users/profile', config)
+      return axios.get('https://hellomama-be.herokuapp.com/api/v1/users/profile', config)
           .then(response => {
             //   console.log(response.data)
               this.setState({
@@ -51,7 +51,7 @@ class MyContainer extends React.Component {
     }
 
     getLocations() {
-        return axios.get('http://localhost:5000/api/v1/locations')
+        return axios.get('https://hellomama-be.herokuapp.com/api/v1/locations')
             .then(response => {
                 this.setState({
                     locations: response.data.locations,
@@ -64,37 +64,34 @@ class MyContainer extends React.Component {
             })
     }
 
-    handleChange_searchBox(e) {
-        // return
-    }
 
     filterCheckBox_cs() {
         this.setState({
-            checkbox_cs: !this.state.checkbox_cs
+            changing_station: !this.state.changing_station
         })
     }
 
     filterCheckBox_sink() {
         this.setState({
-            checkbox_sink: !this.state.checkbox_sink
+            sink: !this.state.sink
         })
     }
 
     filterCheckBox_hwd() {
         this.setState({
-            checkbox_hwd: !this.state.checkbox_hwd
+            hot_water_dispenser: !this.state.hot_water_dispenser
         })
     }
 
     filterCheckBox_pp() {
         this.setState({
-            checkbox_pp: !this.state.checkbox_pp
+            power_point: !this.state.power_point
         })
     }
 
     filterCheckBox_lock() {
         this.setState({
-            checkbox_lock: !this.state.checkbox_lock
+            lockable: !this.state.lockable
         })
     }
 
@@ -119,11 +116,11 @@ class MyContainer extends React.Component {
                     <Route path="/locations/:slug" component={EditLocation} />
 
                     <Route path="/"><Map 
-                        checkbox_cs={this.state.checkbox_cs}
-                        checkbox_sink={this.state.checkbox_sink}
-                        checkbox_hwd={this.state.checkbox_hwd}
-                        checkbox_pp={this.state.checkbox_pp}
-                        checkbox_lock={this.state.checkbox_lock}
+                        changing_station={this.state.changing_station}
+                        sink={this.state.sink}
+                        hot_water_dispenser={this.state.hot_water_dispenser}
+                        power_point={this.state.power_point}
+                        lockable={this.state.lockable}
                     
                     /></Route>
 

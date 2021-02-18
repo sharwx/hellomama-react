@@ -52,8 +52,14 @@ function Map(props) {
       })
     }
 
-    // console.log(props.checkbox_lock)
-    // console.log(locations)
+    const filters = {
+      changing_station: props.changing_station,
+      sink: props.sink,
+      hot_water_dispenser: props.hot_water_dispenser,
+      power_point: props.power_point,
+      lockable: props.lockable
+    }
+
 
     return (
         <MapGL
@@ -72,41 +78,50 @@ function Map(props) {
           />
 
           {
-            locations.filter(entry => {
-              let arr = []
-              // if (props.checkbox_lock) {
-              //   return entry.lockable
-              // } else {
-              //   return true
-              // }
+            locations
+              .filter((location) => {
+                let passedChecks = true;
+                for (const filter in filters) {
+                    if (passedChecks && filters[filter]) {
+                        passedChecks = location[filter];
+                    }
+                }
+                return passedChecks;
+              })
 
-              if (props.checkbox_lock === true) {
-                arr.push(entry.lockable)
-              } else if (props.checkbox_cs === true) {
-                arr.push(entry.changing_station)
-              } else if (props.checkbox_sink === true) {
-                arr.push(entry.sink)
-              } else if (props.checkbox_hwd === true) {
-                arr.push(entry.hot_water_dispenser)
-              } else if (props.checkbox_pp === true) {
-                arr.push(entry.power_point)
-              }
+                // if (props.checkbox_lock) {
+                //   return entry.lockable
+                // } else {
+                //   return true
+                // }
 
-              if (arr.length === 1) {
-                return arr[0]
-              } else if (arr.length === 2) {
-                return arr[0], arr[1]
-              } else if (arr.length === 3) {
-                return arr[0], arr[1], arr[2]
-              } else if (arr.length === 4) {
-                return arr[0], arr[1], arr[2], arr[3]
-              } else if (arr.length === 5) {
-                return arr[0], arr[1], arr[2], arr[4], arr[5]
-              } else {
-                return true
-              }
+                // let arr = []
+                // if (props.lockable === true) {
+                //   arr.push(entry.lockable)
+                // } else if (props.changing_station === true) {
+                //   arr.push(entry.changing_station)
+                // } else if (props.sink === true) {
+                //   arr.push(entry.sink)
+                // } else if (props.hot_water_dispenser === true) {
+                //   arr.push(entry.hot_water_dispenser)
+                // } else if (props.power_point === true) {
+                //   arr.push(entry.power_point)
+                // }
 
-            })
+                // if (arr.length === 1) {
+                //   return arr[0]
+                // } else if (arr.length === 2) {
+                //   return arr[0] && arr[1]
+                // } else if (arr.length === 3) {
+                //   return arr[0] && arr[1] && arr[2]
+                // } else if (arr.length === 4) {
+                //   return arr[0] && arr[1] && arr[2] && arr[3]
+                // } else if (arr.length === 5) {
+                //   return arr[0] && arr[1] && arr[2] && arr[4] && arr[5]
+                // } else {
+                //   return true
+                // }
+              // })
 
               .map(entry => (
               <React.Fragment key={entry.id}>
