@@ -1,5 +1,7 @@
 import React from 'react'
 import jwt from 'jwt-decode'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import './Map.scss';
 import {useState, useEffect } from 'react'
 import MapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl'
@@ -14,6 +16,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN
 
 
 function Map(props) {
+    const [show, setShow] = useState(true)
     const [locations, setLocations] = useState([])
     const [showPopup, setShowPopup] = useState({})
     const [cookies] = useCookies(["token"])
@@ -25,6 +28,9 @@ function Map(props) {
       bearing: 0,
       pitch: 0
     });
+
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
 
     const geolocateStyle = {
       float: 'right',
@@ -62,6 +68,15 @@ function Map(props) {
 
 
     return (
+
+      <React.Fragment>
+          <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Welcome to HelloMaMa App!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Want to contribute? Please double-click on the map to add a location.</Modal.Body>
+        </Modal>
+
         <MapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -94,34 +109,6 @@ function Map(props) {
                 // } else {
                 //   return true
                 // }
-
-                // let arr = []
-                // if (props.lockable === true) {
-                //   arr.push(entry.lockable)
-                // } else if (props.changing_station === true) {
-                //   arr.push(entry.changing_station)
-                // } else if (props.sink === true) {
-                //   arr.push(entry.sink)
-                // } else if (props.hot_water_dispenser === true) {
-                //   arr.push(entry.hot_water_dispenser)
-                // } else if (props.power_point === true) {
-                //   arr.push(entry.power_point)
-                // }
-
-                // if (arr.length === 1) {
-                //   return arr[0]
-                // } else if (arr.length === 2) {
-                //   return arr[0] && arr[1]
-                // } else if (arr.length === 3) {
-                //   return arr[0] && arr[1] && arr[2]
-                // } else if (arr.length === 4) {
-                //   return arr[0] && arr[1] && arr[2] && arr[3]
-                // } else if (arr.length === 5) {
-                //   return arr[0] && arr[1] && arr[2] && arr[4] && arr[5]
-                // } else {
-                //   return true
-                // }
-              // })
 
               .map(entry => (
               <React.Fragment key={entry.id}>
@@ -283,9 +270,10 @@ function Map(props) {
               </>
             ) : null
           }
-
-
         </MapGL>
+
+      </React.Fragment>
+
     );
 }
 

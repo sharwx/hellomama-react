@@ -62,7 +62,7 @@ class Login extends React.Component {
                         path: '/',
                         expires: moment.unix(response.data.expiresAt).toDate()
                     })
-                    console.log(this.props.cookies)
+                    // console.log(this.props.cookies)
                     this.props.history.push('/')
                 })
 
