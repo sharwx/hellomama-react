@@ -1,7 +1,6 @@
 import React from 'react'
 import jwt from 'jwt-decode'
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
 import './Map.scss';
 import {useState, useEffect } from 'react'
 import MapGL, { Marker, Popup, GeolocateControl } from 'react-map-gl'

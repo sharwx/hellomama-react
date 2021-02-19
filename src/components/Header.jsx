@@ -17,26 +17,6 @@ class Header extends React.Component {
     //     }
     // }
 
-    // getProfileUser() {
-    //     const token = this.props.cookies.get('token')
-    //     const config = {
-    //         headers: {
-    //             auth_token: token
-    //         }
-    //     }
-    //     return axios.get('https://hellomama-be.herokuapp.com/api/v1/users/profile', config)
-    //         .then(response => {
-    //             // console.log(response.data)
-    //             this.setState({
-    //                 username: response.data[0].username,
-    //                 loggedIn: true
-    //             })
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-    // }
-
     componentDidMount() {
         this.props.getProfileUser()
     }
@@ -142,7 +122,6 @@ class Header extends React.Component {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        {/* <Nav.Link href="#home">Home</Nav.Link> */}
 
 
                             {

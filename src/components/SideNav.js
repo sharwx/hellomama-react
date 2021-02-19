@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import jwt from 'jwt-decode'
-// import { useCookies } from 'react-cookie'
 
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
@@ -9,14 +7,7 @@ import './SideNav.scss'
 
 function SideNav(props) {
 
-  // const [cookies] = useCookies(["token"])
   const [sidebar,setSidebar] = useState(false)
-  // const [checkbox_cs,setCheckbox_cs] = useState(true)
-  // const [checkbox_sink,setCheckbox_sink] = useState(true)
-  // const [checkbox_hwd,setCheckbox_hwd] = useState(true)
-  // const [checkbox_pp,setCheckbox_pp] = useState(true)
-  // const [checkbox_lock,setCheckbox_lock] = useState(true)
-  // const [seachTerm, setSearchTerm] = useState('')
 
   const showSidebar = () => {
     setSidebar(!sidebar) // reverse boolean
