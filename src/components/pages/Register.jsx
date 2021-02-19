@@ -67,7 +67,7 @@ class Login extends React.Component {
             axios.post('https://hellomama-be.herokuapp.com/api/v1/users/register', qs.stringify(userObject))
                 .then(response => {
 
-                    console.log(response.data)
+                    // console.log(response.data)
 
                     this.props.cookies.set('token', response.data.token, {
                         path: '/',
