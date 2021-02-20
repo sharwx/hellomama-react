@@ -5,7 +5,7 @@ A basic app to crowdsource information on the location of nursing rooms and info
 **URL: https://hellomama-app.herokuapp.com/**
 
 ## Technologies
-HTML, CSS, SASS, JavaScript, nodeJS, Express, React, Sequelize and SQL <br />
+HTML, CSS, SASS, JavaScript, nodeJS, Express, React, Sequelize, SQL and Mapbox <br />
 CSS Library: Bootstrap & React Bootstrap
 
 ## Features
@@ -13,3 +13,6 @@ CSS Library: Bootstrap & React Bootstrap
 - Add, edit, delete locations
 - Filter facilities
 - Geolocation
+
+## Credits
+Data points: https://www.sassymamasg.com/singapore-nursing-room-ultimate-guide/
